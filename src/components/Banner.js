@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from '../api/axios' ;//공통으로 들어간 aixos 불러오기
 import requests from '../api/request'; //목록들
 import "./Banner.css";
+import styled from 'styled-components';
 
 
 const Banner = () => {
 
   const [movie, setMovie] = useState([]);
+  const [isClicked,setIsClicked]=useState([false]);
   useEffect(()=>{
 
   },[])
@@ -32,8 +34,28 @@ const Banner = () => {
   const truncate= (str,n)=>{
     return str?.length >n? str.substring(0,n)+"...":str;
   }
+  //비디오 클릭했을때 비디오 보여짐
+  if(isClicked){
+    return(
+      <>
+   <Container>
+    <HomeContainer>
+      <Iframe width="560" height="315"
+      src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=&1&playlist=${movie.videos.results[0].key}`}
+     frameborder="0"
+     allow="autoplay:fullscreen"
+      > 
 
-  //이미지 배너 ui
+      </Iframe>
+    </HomeContainer>
+   </Container>
+   <button onClick={()=>setIsClicked(false)}></button>
+   </>
+    )
+  }else{
+
+  
+  //이미지 배너 
   return (
     <header className='banner' style={{
       backgroundImage:`url("https://image.tmbd.org/p/original/${movie.backdrop_path}"`,
@@ -50,6 +72,7 @@ const Banner = () => {
         {movie?.video?.results[0]?.key&&
         <button 
         className='banner_button play'
+       onClick={()=>setIsClicked(true)}
         >
           Play
           </button >
@@ -67,5 +90,39 @@ const Banner = () => {
    </header>
   )
 }
+}
 
 export default Banner
+
+
+const Container = styled.div`
+display: flex;
+justify-content: center;
+align-items : center;
+flex-direction : column;
+width: 100%;
+height: 100vh;
+`;
+
+const HomeContainer= styled.div`
+width:100%;
+height: 100%;
+`;
+
+//iframe
+const Iframe = styled.iframe`
+width: 100%;
+height: 100%;
+z-index: -1;
+opacity: 0.65;
+border: none;
+
+&::after{
+  content:"";
+  position : absolute;
+  top : 0;
+  left : 0;
+  width: 100%;
+  height: 100%;
+}
+`;
