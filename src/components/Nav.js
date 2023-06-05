@@ -19,7 +19,7 @@ const Nav = () => {
       window.removeEventListener('scroll',()=>{});
     }
   },[
-    //베열 없으면 컴포넌트 실행 딱 한번ㅁㄴ 실행 / 만약 여기에 있으면 그게 실행됨 
+    //베열 없으면 컴포넌트 실행 딱 한번만 실행 / 만약 여기에 있으면 그게 실행됨 
   ])
   return (
     <NavWrapper show={show}>

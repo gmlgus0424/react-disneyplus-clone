@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback,useEffect, useState } from 'react'
+import axios from '../api/axios';
+import "./Row.css"
+import MovieModal from './MovieModal';
 
 
 //영화정보 가져오기,useEffect 사용
 const Row = ({title, id, fetchUrl}) => {
 
-  const [movie,setMoives]= useState([]);
+  const [movies,setMoives]= useState([]);
+  const [modalOpen,setModalOpen]= useState(false);
 
 
 
     const fetchMoiveData= useCallback(async()=>{
       const response  = await axios.get(fetchUrl);
       console.log('respons',response);
-      setMoives(request.data.results);
+      setMoives(response.data.results);
     }, [fetchUrl])
 
-    useEffect(()=>{
+    useEffect(() => {
       fetchMovieData();
-      },[fetchUrl]);
-  
+    }, [fetchMovieData])
+
+      //모달 오픈
+    const handleClick=(movie)=>{
+      setModalOpen(true);
+    }
+
   return (
     <div>
       <h2>{title}</h2>
@@ -30,11 +39,12 @@ const Row = ({title, id, fetchUrl}) => {
           </span>
         </div>
         <div id={id} className="row_posters">
-          {moives.map(movie=>(
-            <img key={movie.id}
+          {moives.map(movies=>(
+            <img key={movies.id}
             className="row__poster"
             src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-            alt={movie.name}
+            alt={movies.name}
+            onClick={()=>handleClick(moives)}
             />
           ))}
         </div>
@@ -47,7 +57,14 @@ const Row = ({title, id, fetchUrl}) => {
           </span>
         </div>
       </div>
-    </div>
+      
+     {setModalOpen &&(
+      <MovieModal
+        setModalOpen={setModalOpen}/>
+     ) }
+    
+
+   </div>
   )
 }
 

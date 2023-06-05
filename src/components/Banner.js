@@ -8,19 +8,21 @@ import styled from 'styled-components';
 const Banner = () => {
 
   const [movie, setMovie] = useState([]);
-  const [isClicked,setIsClicked]=useState([false]);
+  const [isClicked,setIsClicked]=useState(false);
+
   useEffect(()=>{
+    fetchData();
 
   },[])
 
   const fetchData=async()=>{
     //현재 상영중인 영화 정보를 가져오기 (여러 영화)
-   const response= await axios.get(requests.fetchNowPlaying)
+    const response = await axios.get(requests.fetchNowPlaying); //eslint-disable-line no-unused-vars
     //여러 영화 중 영화 하나의 ID 가져오기(request.data.result중 하나 가져오는거 배열로 0~19까지 랜덤 id값)
     const movieId=
     requests.data.results[
       Math.floor(Math.random()* requests.data.results.length)
-    ].id;
+    ].id
 
     //여러 영화중 영화 하나의 특정(상세한)정보 가져오기 
     const {data:movieDetail}=await axios.get(`movie/${movieId}`,{
@@ -34,14 +36,19 @@ const Banner = () => {
   const truncate= (str,n)=>{
     return str?.length >n? str.substring(0,n)+"...":str;
   }
+
+
+
   //비디오 클릭했을때 비디오 보여짐
   if(isClicked){
     return(
       <>
    <Container>
     <HomeContainer>
-      <Iframe width="560" height="315"
-      src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=&1&playlist=${movie.videos.results[0].key}`}
+      <Iframe
+       width="560" 
+       height="315"
+      src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
      frameborder="0"
      allow="autoplay:fullscreen"
       > 
@@ -49,7 +56,7 @@ const Banner = () => {
       </Iframe>
     </HomeContainer>
    </Container>
-   <button onClick={()=>setIsClicked(false)}></button>
+   <button onClick={()=>setIsClicked(false)}>X</button>
    </>
     )
   }else{
@@ -57,8 +64,9 @@ const Banner = () => {
   
   //이미지 배너 
   return (
-    <header className='banner' style={{
-      backgroundImage:`url("https://image.tmbd.org/p/original/${movie.backdrop_path}"`,
+    <header className='banner' 
+    style={{
+      backgroundImage:`url("https://image.tmbd.org/p/original/${movie.backdrop_path}")`,
       backgroundPostion: "top center",
       backgroundSize:"cover",
     }}
