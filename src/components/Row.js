@@ -9,6 +9,7 @@ const Row = ({title, id, fetchUrl}) => {
 
   const [movies,setMoives]= useState([]);
   const [modalOpen,setModalOpen]= useState(false);
+  const[movieSelected,setMovieSelection]=useState({});
 
 
 
@@ -25,6 +26,7 @@ const Row = ({title, id, fetchUrl}) => {
       //모달 오픈
     const handleClick=(movie)=>{
       setModalOpen(true);
+      setMovieSelection(movie);
     }
 
   return (
@@ -58,8 +60,9 @@ const Row = ({title, id, fetchUrl}) => {
         </div>
       </div>
       
-     {setModalOpen &&(
+     {modalOpen &&(
       <MovieModal
+      {...movieSelected}
         setModalOpen={setModalOpen}/>
      ) }
     
