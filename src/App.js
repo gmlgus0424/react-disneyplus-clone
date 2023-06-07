@@ -6,41 +6,35 @@ import styled from 'styled-components';
 import Banner from './components/Banner';
 import Category from './components/Category';
 import Row from './components/Row';
+import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
+import SearchPage from './pages/searchPage'
 
+const Layout=()=>{
+    return (
+      <div>
+        <Nav/>
+        <Oulet/>
+
+      </div>
+    )
+}
+//중첩라우팅
 function App() {
   return (
   <div className="App">
-    <Container>
-    <Nav/>
-    <Banner/>
-    <Category/>
-    <Row title= "Trending Now" id="TN" fetchUrl={requests.fetchTrending}/>
-    <Row title= "Top Rated" id="TR" fetchUrl={requests.fetchTopRated}/>
-    <Row title= "Action Movies" id="AM" fetchUrl={requests.fetchActionMoives}/>
-    <Row title= "Comedy Movies" id="CM" fetchUrl={requests.fetchComedyMoives}/>
-   
-    </Container>
-  </div>
+    <Routes>
+      <Route path="/" element={<Layout/>}/>
+      
+      <Route index element= {<LoginPage/>}/>
+      <Route path="main" {<MainPage/>}/>
+      <Route path="movie" {<MainPage/>}/>
+      </Route>
+      </Routes>
+     </div>
   );
 }
 
+
 export default App;
 
-const Container= styled.main`
-position : relative;
-min-height: calc(100vh -250px);
-overflow-x: hidden;
-display: block;
-top : 72px;
-padding : 0 calc(3.5vw + 5px);
-
-// 그림자 
-&:after{
-  background: url("/images/home-background.png") center center/ cover no-repeat fixed;
-  content: "";
-  position : absolute;
-  inset: 0px;
-  opacity :1;
-  z-index: -1;
-}
-`
