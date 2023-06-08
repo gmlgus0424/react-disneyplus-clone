@@ -50,6 +50,6 @@ const MovieModal = ({
       </div>
     </div>
   )
-
+}
 
 export default MovieModal

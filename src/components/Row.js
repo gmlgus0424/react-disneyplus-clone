@@ -5,30 +5,27 @@ import MovieModal from './MovieModal';
 
 
 //영화정보 가져오기,useEffect 사용
-const Row = ({title, id, fetchUrl}) => {
-
-  const [movies,setMoives]= useState([]);
-  const [modalOpen,setModalOpen]= useState(false);
-  const[movieSelected,setMovieSelection]=useState({});
-
+const Row = ({ title, id, fetchUrl }) => {
+  const [movies, setMovies] = useState([])
+  const [modalOpen, setModalOpen] = useState(false);
+  const [movieSelected, setMovieSelection] = useState({})
 
 
     const fetchMoiveData= useCallback(async()=>{
       const response  = await axios.get(fetchUrl);
       console.log('respons',response);
-      setMoives(response.data.results);
+      setMovies(response.data.results);
     }, [fetchUrl])
 
     useEffect(() => {
       fetchMovieData();
     }, [fetchMovieData])
-
-      //모달 오픈
-    const handleClick=(movie)=>{
+  
+    //모달오픈
+    const handleClick = (movie) => {
       setModalOpen(true);
       setMovieSelection(movie);
     }
-
   return (
     <div>
       <h2>{title}</h2>
