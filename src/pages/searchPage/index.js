@@ -8,24 +8,22 @@ import "./SearchPage.css";
 const SearchPage = () => {
   const navigate = useNavigate();
   const {searchResult, setSearchResult}=useState([]);
-
-
-
 //데이터조회
   const useQury=()=>{
     return new URLSearchParams(useLocation().search);
-  }
+  };
 
   let query= useQury();
   const searchTeram=query.get("q");
+  const useDebouncedSearchTerm= useDebounce(searchTerm,500);
 
 
 
     useEffect(() => {
-      if(SearchTerm) {
-        fetchSearchMovie(SearchTerm)
+      if(debouncedSearchTerm) {
+        fetchSearchMovie(debouncedSearchTerm)
       }
-    }, [SearchTerm])
+    }, [debouncedSearchTerm])
   
   const fetchSearchMoive=async(searchTeram)=>{
     try{
