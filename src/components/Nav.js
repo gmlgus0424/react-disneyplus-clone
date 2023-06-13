@@ -101,7 +101,7 @@ const Input=styled.input`
 
 // css(styled-component)
 const NavWrapper=styled.nav`
-position: fixed; //스크롤링해도 픽스
+position: fixed; 
 top:0;
 left:0;
 right:0;

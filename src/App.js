@@ -11,9 +11,6 @@ import MainPage from './pages/MainPage';
 import SearchPage from './pages/SearchPage';
 import DetailPage from './pages/DetailPage';
 
-
-
-
 const Layout =() => {
   return(
     <div>
@@ -41,7 +38,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
