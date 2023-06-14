@@ -14,6 +14,8 @@ import "swiper/css/scrollbar";
 import "swiper/css/pagination";
 import styled from 'styled-components';
 
+
+//영화정보 가져오기
 const Row = ({ title, id, fetchUrl }) => {
   const [movies, setMovies] = useState([])
   const [modalOpen, setModalOpen] = useState(false);
@@ -29,6 +31,7 @@ const Row = ({ title, id, fetchUrl }) => {
     fetchMovieData();
   }, [fetchMovieData])
 
+  // 모달 오픈
   const handleClick = (movie) => {
     setModalOpen(true);
     setMovieSelection(movie);
