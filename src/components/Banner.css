@@ -19,13 +19,13 @@
 }
 
 @media (max-width: 768px) {
-  .banner-contents {
-      width: min-content !important; /*가장 먼저 적용*/
-      padding-left: 2.3rem; /*rem : 최상단 정의를 한거에 대한 2.3 rem */ 
+  .banner__contents {
+      width: min-content !important;
+      padding-left: 2.3rem;
       margin-left: 0px !important;
   }
 
-  .banner_description {
+  .banner__description {
       font-size: 0.8rem !important;
       width: auto !important;
   }
@@ -82,7 +82,7 @@
 
 .banner__button {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   outline: none;

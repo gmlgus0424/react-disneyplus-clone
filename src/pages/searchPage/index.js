@@ -4,37 +4,31 @@ import axios from '../../api/axios';
 import { useDebounce } from '../../hooks/useDebounce';
 import "./SearchPage.css";
 
-
 const SearchPage = () => {
   const navigate = useNavigate();
-  const {searchResult, setSearchResult}=useState([]);
-//데이터조회
-  const useQury=()=>{
+  const [searchResults, setSearchResults] = useState([]);
+  const useQuery = () => {
     return new URLSearchParams(useLocation().search);
   };
+  let query = useQuery();
+  const searchTerm = query.get("q");
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+  useEffect(() => {
+    if(debouncedSearchTerm) {
+      fetchSearchMovie(debouncedSearchTerm)
+    }
+  }, [debouncedSearchTerm])
 
-  let query= useQury();
-  const searchTeram=query.get("q");
-  const useDebouncedSearchTerm= useDebounce(searchTerm,500);
 
-
-
-    useEffect(() => {
-      if(debouncedSearchTerm) {
-        fetchSearchMovie(debouncedSearchTerm)
-      }
-    }, [debouncedSearchTerm])
-  
-  const fetchSearchMoive=async(searchTeram)=>{
-    try{
+  const fetchSearchMovie = async (searchTerm) => {
+    try {
       const response = await axios.get(`/search/multi?include_adult=false&query=${searchTerm}`);
       setSearchResults(response.data.results);
-    }catch(error){
+      // console.log('response',response);
+    } catch (error) {
       console.log(error);
     }
   }
-
-
 
   if(searchResults.length > 0) {
     return (
@@ -67,4 +61,3 @@ const SearchPage = () => {
 }
 
 export default SearchPage
-

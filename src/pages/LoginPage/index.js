@@ -13,7 +13,7 @@ const LoginPage = () => {
             디즈니 플러스 가격은 다음 주부터 1000원 인상됩니다.
             
           </Description>
-          <LogoTwo src="/images/cta-logo-two.svg" alt="logo-two"/>
+          <LogoTwo src="images/cta-logo-two.png" alt="logo-two"/>
         </Center>
 
       </Content>

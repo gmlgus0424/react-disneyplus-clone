@@ -40,64 +40,62 @@ const Banner = () => {
 
 
   //비디오 클릭했을때 비디오 보여짐
-  if(isClicked){
-    return(
-      <>
-   <Container>
-    <HomeContainer>
-      <Iframe
-       width="560" 
-       height="315"
-      src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
-     frameborder="0"
-     allow="autoplay:fullscreen"
-      > 
-
-      </Iframe>
-    </HomeContainer>
-   </Container>
-   <button onClick={()=>setIsClicked(false)}>X</button>
-   </>
-    )
-  }else{
-
   
-  //이미지 배너 
-  return (
-    <header className='banner' 
-    style={{
-      backgroundImage:`url("https://image.tmbd.org/p/original/${movie.backdrop_path}")`,
-      backgroundPostion: "top center",
-      backgroundSize:"cover",
-    }}
-   >
-    <div className='banner-contents'>
-      <h1 className= 'banner_title'>
-        {movie.title|| movie.name|| movie.orignal_name}
-      </h1>
 
-      <div calssName='banner-buttons'>
-        {movie?.video?.results[0]?.key&&
-        <button 
-        className='banner_button play'
-       onClick={()=>setIsClicked(true)}
-        >
-          Play
-          </button >
+  if (isClicked) {
+    return (
+      <>
+        <Container>
+          <HomeContainer>
+            <Iframe
+              src={`https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`}
+              width="640"
+              height="360"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+            ></Iframe>
+          </HomeContainer>
+        </Container>
+        <button onClick={() => setIsClicked(false)}>X</button>
+      </>
+    )
+  } else {
+    return (
+      <header
+        className='banner'
+        style={{
+          backgroundImage: `url("https://image.tmdb.org/t/p/original/${movie.backdrop_path}")`,
+          backgroundPosition: "top center",
+          backgroundSize: "cover"
+        }}
+      >
+    
+      <div style={{ fontSize: 10 }} className='banner__contents'>
+        <h1 className='banner__title'>
+          {movie.title || movie.name || movie.original_name}
+        </h1>
+
+        <div className='banner__buttons'>
+          {movie?.videos?.results[0]?.key &&
+            <button
+              className='banner__button play'
+              onClick={() => setIsClicked(true)}
+            >
+              Play
+            </button>
           }
 
-      </div>
-      <p className='banner_description'>
-       {truncate(movie.overview,100)}
 
-      </p>
-     
-    </div>
-    <div className='banner--fadeBottom'/>
+</div>
+          <p className='banner__description'>
+            {truncate(movie.overview, 100)}
+          </p>
+        </div>
+        <div className='banner--fadeBottom' />
+      </header>
+    )
+  }
 
-   </header>
-  )
-}
 }
 
 export default Banner
